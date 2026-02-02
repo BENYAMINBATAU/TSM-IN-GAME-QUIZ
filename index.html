@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISTEM UJIAN TSMBB - SMKN 1 SUMARORONG</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: #38bdf8; text-align: center; padding: 10px; }
+        .box { border: 2px solid #38bdf8; padding: 20px; border-radius: 15px; display: inline-block; background: #1e293b; box-shadow: 0 0 30px rgba(56, 189, 248, 0.3); max-width: 500px; text-align: left; width: 95%; }
+        h1 { color: #f1f5f9; text-align: center; font-size: 20px; text-transform: uppercase; }
+        label { display: block; margin-top: 12px; font-size: 13px; color: #94a3b8; }
+        input[type="text"], input[type="email"] { width: 100%; padding: 10px; margin-top: 5px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
+        .soal-container { margin-top: 20px; padding: 15px; background: #0f172a; border-radius: 10px; border-left: 4px solid #38bdf8; margin-bottom: 15px; }
+        .opsi { display: block; margin: 10px 0; cursor: pointer; color: white; font-size: 14px; }
+        button { background: #38bdf8; color: #0f172a; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; border-radius: 8px; margin-top: 20px; font-size: 16px; }
+        #status { margin-top: 15px; font-size: 12px; text-align: center; color: #4ade80; display: none; }
+        .badge-koin { background: #4ade80; color: #0f172a; padding: 2px 8px; border-radius: 5px; font-size: 11px; float: right; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h1>UJIAN HARIAN TSMBB <br><span style="font-size: 12px; color: #94a3b8;">SMKN 1 SUMARORONG</span></h1>
+        <hr style="border:0.5px solid #334155;">
+
+        <label>Nama Lengkap:</label>
+        <input type="text" id="nama" placeholder="Nama Sesuai Absen">
+        <label>Kelas & Jurusan:</label>
+        <input type="text" id="kelas" placeholder="Contoh: XII TSM 1">
+        <label>Alamat Wallet Solana:</label>
+        <input type="text" id="wallet" placeholder="Tempel Alamat Brave/Phantom">
+        <input type="hidden" id="email" value="siswa@smkn1sumarorong.sch.id">
+
+        <p style="color: #4ade80; font-size: 12px; font-weight: bold; margin-top: 20px;">📜 DAFTAR SOAL (Total Reward: 100 TSMBB)</p>
+
+        <div id="form-ujian">
+    <div class="soal-container"><p>1. Mengapa penggunaan api (bakar) tidak disarankan untuk merontokkan cat pada tangki Tiger dibanding Paint Remover?</p>
+        <label class="opsi"><input type="radio" name="q1" value="A"> A. Merusak struktur plat dan memicu korosi internal</label>
+        <label class="opsi"><input type="radio" name="q1" value="B"> B. Prosesnya terlalu cepat</label></div>
+
+    <div class="soal-container"><p>2. Jika setelah kerok cat ditemukan lubang jarum (pinhole) akibat karat, tindakan terbaik adalah...</p>
+        <label class="opsi"><input type="radio" name="q2" value="A"> A. Langsung didempul tebal</label>
+        <label class="opsi"><input type="radio" name="q2" value="B"> B. Dilakukan penyoldaran/patri/las kuningan sebelum epoxy</label></div>
+
+    <div class="soal-container"><p>3. Apa resiko utama jika pengamplasan Epoxy tidak menggunakan air (dry sanding) pada tahap awal?</p>
+        <label class="opsi"><input type="radio" name="q3" value="A"> A. Kertas amplas cepat mati/tersumbat residu</label>
+        <label class="opsi"><input type="radio" name="q3" value="B"> B. Permukaan plat menjadi terlalu basah</label></div>
+
+    <div class="soal-container"><p>4. Mengapa bensin tidak disarankan sebagai cairan pembersih final (degreaser) sebelum naik warna?</p>
+        <label class="opsi"><input type="radio" name="q4" value="A"> A. Bensin meninggalkan residu minyak/timbal</label>
+        <label class="opsi"><input type="radio" name="q4" value="B"> B. Bensin terlalu cepat menguap</label></div>
+
+    <div class="soal-container"><p>5. Fenomena "Cat Keriting" saat naik warna biasanya disebabkan oleh...</p>
+        <label class="opsi"><input type="radio" name="q5" value="A"> A. Jeda antar lapisan terlalu lama</label>
+        <label class="opsi"><input type="radio" name="q5" value="B"> B. Reaksi kimia antara cat baru dan cat lama yang tidak kuat</label></div>
+
+    <div class="soal-container"><p>6. Perbandingan Thinner yang terlalu banyak pada Epoxy akan mengakibatkan...</p>
+        <label class="opsi"><input type="radio" name="q6" value="A"> A. Daya tutup (hiding power) menurun dan mudah meler</label>
+        <label class="opsi"><input type="radio" name="q6" value="B"> B. Proses pengeringan menjadi lebih lambat</label></div>
+
+    <div class="soal-container"><p>7. Apa fungsi utama Hardener pada campuran Epoxy?</p>
+        <label class="opsi"><input type="radio" name="q7" value="A"> A. Mengkristalkan lapisan agar tahan terhadap goresan dan kimia</label>
+        <label class="opsi"><input type="radio" name="q7" value="B"> B. Memberikan efek metalik</label></div>
+
+    <div class="soal-container"><p>8. Mengapa dempul tidak boleh diaplikasikan langsung di atas plat besi tanpa Epoxy?</p>
+        <label class="opsi"><input type="radio" name="q8" value="A"> A. Dempul tidak bisa menempel di besi</label>
+        <label class="opsi"><input type="radio" name="q8" value="B"> B. Memicu karat di bawah lapisan dempul karena dempul menyerap air</label></div>
+
+    <div class="soal-container"><p>9. Jika hasil semprotan "Kulit Jeruk", hal pertama yang harus diperiksa pada Spray Gun adalah...</p>
+        <label class="opsi"><input type="radio" name="q9" value="A"> A. Tekanan angin terlalu rendah atau cat terlalu kental</label>
+        <label class="opsi"><input type="radio" name="q9" value="B"> B. Jarum nozzle terlalu besar</label></div>
+
+    <div class="soal-container"><p>10. Warna dasar Silver digunakan pada Tiger warna Biru Muda/Abu agar...</p>
+        <label class="opsi"><input type="radio" name="q10" value="A"> A. Warna terlihat lebih "Deep" dan bercahaya (Light Effect)</label>
+        <label class="opsi"><input type="radio" name="q10" value="B"> B. Menghemat penggunaan cat utama</label></div>
+
+    <div class="soal-container"><p>11. Teknik semprot "Mist Coat" (tipis-tipis) di lapisan pertama bertujuan untuk...</p>
+        <label class="opsi"><input type="radio" name="q11" value="A"> A. Menghindari "mbleber" dan memberikan pegangan bagi lapisan kedua</label>
+        <label class="opsi"><input type="radio" name="q11" value="B"> B. Langsung menutup pori-pori plat</label></div>
+
+    <div class="soal-container"><p>12. Untuk mendapatkan Abu-abu solid yang konsisten, pencampuran warna sebaiknya dilakukan dengan...</p>
+        <label class="opsi"><input type="radio" name="q12" value="A"> A. Menggunakan timbangan digital (gramasi)</label>
+        <label class="opsi"><input type="radio" name="q12" value="B"> B. Hanya dikira-kira saja</label></div>
+
+    <div class="soal-container"><p>13. Filter udara pada kompresor wajib diperiksa agar hasil cat tidak mengalami...</p>
+        <label class="opsi"><input type="radio" name="q13" value="A"> A. Mata ikan (Fish eye) akibat tetesan air/oli dari selang</label>
+        <label class="opsi"><input type="radio" name="q13" value="B"> B. Perubahan warna menjadi gelap</label></div>
+
+    <div class="soal-container"><p>14. Overlap (tumpang tindih) semprotan yang disarankan adalah sebesar...</p>
+        <label class="opsi"><input type="radio" name="q14" value="A"> A. 10% saja</label>
+        <label class="opsi"><input type="radio" name="q14" value="B"> B. 50% - 75% dari lebar semprotan</label></div>
+
+    <div class="soal-container"><p>15. Mengapa lapisan warna Biru Muda/Abu-abu tidak boleh langsung dipoles sebelum Clear Coat?</p>
+        <label class="opsi"><input type="radio" name="q15" value="A"> A. Karena merusak pigmen warna dan daya rekat clear nantinya</label>
+        <label class="opsi"><input type="radio" name="q15" value="B"> B. Karena cat akan berubah menjadi cair kembali</label></div>
+
+    <div class="soal-container"><p>16. Munculnya bercak putih (blushing) pada cat saat cuaca mendung disebabkan oleh...</p>
+        <label class="opsi"><input type="radio" name="q16" value="A"> A. Kelembapan udara yang terperangkap dalam lapisan cat</label>
+        <label class="opsi"><input type="radio" name="q16" value="B"> B. Kualitas cat yang kadaluarsa</label></div>
+
+    <div class="soal-container"><p>17. Base Coat disebut gagal jika terjadi "Sand Scratch", yaitu...</p>
+        <label class="opsi"><input type="radio" name="q17" value="A"> A. Bekas amplas tahap awal terlihat menembus warna utama</label>
+        <label class="opsi"><input type="radio" name="q17" value="B"> B. Cat mengelupas karena panas</label></div>
+
+    <div class="soal-container"><p>18. Pengecatan di bawah terik matahari langsung secara ekstrem beresiko...</p>
+        <label class="opsi"><input type="radio" name="q18" value="A"> A. Solvent Pop (pelarut terjebak dan meletup keluar)</label>
+        <label class="opsi"><input type="radio" name="q18" value="B"> B. Cat tidak bisa mengering sama sekali</label></div>
+
+    <div class="soal-container"><p>19. Thinner "Slow" digunakan saat cuaca panas bertujuan agar...</p>
+        <label class="opsi"><input type="radio" name="q19" value="A"> A. Cat tidak kering di udara sebelum sampai ke media (Overspray)</label>
+        <label class="opsi"><input type="radio" name="q19" value="B"> B. Warna cat menjadi lebih gelap</label></div>
+
+    <div class="soal-container"><p>20. Tahap terakhir sebelum Glossy adalah memastikan warna rata. Jika warna belang, penyebabnya adalah...</p>
+        <label class="opsi"><input type="radio" name="q20" value="A"> A. Kecepatan ayunan tangan dan jarak semprot yang tidak stabil</label>
+        <label class="opsi"><input type="radio" name="q20" value="B"> B. Jenis Spray Gun yang digunakan terlalu murah</label></div>
+</div>
+
+            <p style="text-align: center; color: #94a3b8; font-size: 11px;">[ Tambahkan soal 3 s/d 20 di sini ]</p>
+        </div>
+
+        <button id="btnKirim" onclick="prosesData()">KIRIM JAWABAN & TERIMA KOIN</button>
+        <div id="status">Mengirim data ke database Pak Guru...</div>
+    </div>
+
+    <script>
+        async function prosesData() {
+            const scriptURL = 'MASUKKAN_URL_WEB_APP_BAPAK_DI_SINI';
+            
+            // Ambil identitas
+            const nama = document.getElementById('nama').value;
+            const kelas = document.getElementById('kelas').value;
+            const wallet = document.getElementById('wallet').value;
+            
+            // --- KUNCI JAWABAN HOTS TERACAK ---
+            let benar = 0;
+            const kunciJawaban = [
+                "A", "B", "A", "A", "B", 
+                "A", "A", "B", "A", "A", 
+                "A", "A", "A", "B", "A", 
+                "A", "A", "A", "A", "A"
+            ]; 
+
+            for (let i = 1; i <= 20; i++) {
+                let jawabanSiswa = document.querySelector(`input[name="q${i}"]:checked`)?.value;
+                if (jawabanSiswa === kunciJawaban[i-1]) {
+                    benar++;
+                }
+            }
+
+            const totalKoin = benar * 5; // 5 koin per soal
+
+            if(!nama || !wallet) {
+                alert("Identitas harus diisi lengkap!");
+                return;
+            }
+
+            document.getElementById('btnKirim').disabled = true;
+            document.getElementById('btnKirim').innerText = "PROSES VALIDASI...";
+            document.getElementById('status').style.display = "block";
+
+            try {
+                await fetch(scriptURL, { 
+                    method: 'POST', 
+                    mode: 'no-cors',
+                    body: new URLSearchParams({
+                        'nama': nama,
+                        'kelas': kelas,
+                        'email': document.getElementById('email').value,
+                        'wallet': wallet,
+                        'jawaban': "Benar: " + benar + " | Reward: " + totalKoin + " TSMBB"
+                    })
+                });
+
+                alert("SELAMAT! \n\nJawaban Benar: " + benar + "\nReward Anda: " + totalKoin + " TSMBB\n\nKoin akan dikirim ke Wallet oleh Pak Guru.");
+                document.getElementById('btnKirim').innerText = "SUKSES TERKIRIM";
+            } catch (e) {
+                alert("Gagal kirim: " + e.message);
+            }
+        }
+    </script>
+</body>
+</html>
