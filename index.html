@@ -1,120 +1,167 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UJIAN TSM - SMKN 1 SUMARORONG</title>
-    <script src="https://bundle.run/buffer@6.0.3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.78.3/lib/index.iife.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.3.8/lib/index.iife.min.js"></script>
-    <style>
-        :root { --hijau: #4ade80; --gelap: #020617; }
-        body { background: var(--gelap); color: white; font-family: sans-serif; margin: 0; padding: 20px; text-align: center; }
-        .card { background: #1e293b; border-radius: 15px; padding: 20px; border: 2px solid var(--hijau); max-width: 500px; margin: auto; text-align: left; }
-        .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #334155; padding-bottom: 10px; }
-        .soal { background: #0f172a; padding: 15px; border-radius: 10px; margin-bottom: 15px; border-left: 4px solid var(--hijau); display: none; }
-        .active { display: block; }
-        button { width: 100%; padding: 15px; background: var(--hijau); color: var(--gelap); font-weight: bold; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; margin-top: 10px; }
-        input[type="text"] { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid var(--hijau); background: var(--gelap); color: white; box-sizing: border-box; }
-        #status { margin-top: 20px; color: #fbbf24; font-size: 14px; font-weight: bold; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UJIAN TSM - SMKN 1 SUMARORONG</title>
+
+<script src="https://bundle.run/buffer@6.0.3"></script>
+<script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.78.3/lib/index.iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.3.8/lib/index.iife.min.js"></script>
+
+<style>
+:root { --hijau:#4ade80; --gelap:#020617; }
+body{background:var(--gelap);color:white;font-family:sans-serif;margin:0;padding:20px}
+.card{background:#1e293b;border-radius:15px;padding:20px;border:2px solid var(--hijau);max-width:520px;margin:auto}
+.header{text-align:center;border-bottom:2px solid #334155;padding-bottom:10px;margin-bottom:20px}
+.soal{background:#0f172a;padding:15px;border-radius:10px;border-left:4px solid var(--hijau)}
+.opsi{margin:10px 0}
+button{width:100%;padding:14px;background:var(--hijau);color:var(--gelap);font-weight:bold;border:none;border-radius:10px;cursor:pointer;margin-top:15px}
+input[type="radio"]{margin-right:8px}
+input[type="text"]{width:100%;padding:12px;border-radius:8px;border:1px solid var(--hijau);background:var(--gelap);color:white}
+#status{margin-top:20px;font-weight:bold}
+</style>
 </head>
+
 <body>
-
-    <div class="card">
-        <div class="header">
-            <h2 style="margin:0;">🏍️ KUIS PENGECATAN</h2>
-            <p style="font-size:12px; color: #94a3b8;">XI TSM - GURU: BENYAMIN BATAU<br>03 Februari 2026</p>
-        </div>
-
-        <div id="setup-area">
-            <label>Alamat Wallet Phantom Siswa:</label>
-            <input type="text" id="wallet_siswa" placeholder="Paste alamat Phantom Anda">
-            <button onclick="mulaiKuis()">MULAI UJIAN ONLINE</button>
-        </div>
-
-        <div id="quiz-area" style="display:none;">
-            <div id="q1" class="soal active">
-                <p><b>Soal 1:</b> Thinner apa yang paling bagus untuk hasil kilap (Gloss) pada motor Supra?</p>
-                <input type="radio" name="j1" value="0"> A. Thinner B biasa<br>
-                <input type="radio" name="j1" value="1"> B. Thinner ND<br>
-                <input type="radio" name="j1" value="100"> C. Thinner PU (Poliurethane)
-            </div>
-
-            <div id="q2" class="soal">
-                <p><b>Soal 2:</b> Apa akibat menggunakan amplas terlalu kasar (No. 100) pada tahap akhir?</p>
-                <input type="radio" name="j2" value="100"> A. Cat baret & tidak rata<br>
-                <input type="radio" name="j2" value="0"> B. Cat lebih mengkilap<br>
-                <input type="radio" name="j2" value="0"> C. Cat cepat kering
-            </div>
-
-            <button id="btn-next" onclick="nextSoal()">SOAL SELANJUTNYA</button>
-        </div>
-
-        <div id="status"></div>
+<div class="card">
+    <div class="header">
+        <h2>🏍️ UJIAN DIAGNOSA MESIN</h2>
+        <p style="font-size:12px;color:#94a3b8">
+            XI TSM – Guru: Benyamin Batau<br>03 Februari 2026
+        </p>
     </div>
 
-    <script>
-        window.Buffer = buffer.Buffer;
-        // PRIVATE KEY GURU (Disembunyikan di backend jika memungkinkan, tapi untuk tes ini kita pakai SK Bapak)
-        const SK_GURU = new Uint8Array([189,246,239,121,175,101,83,254,203,183,233,10,31,202,81,129,206,35,114,157,172,81,204,163,107,224,144,110,139,36,241,212,75,233,152,229,66,90,190,59,10,121,126,186,156,225,130,200,152,110,36,175,242,163,157,154,188,155,166,221,19,50,35,254]);
-        
-        let currentSoal = 1;
-        let totalSkor = 0;
+    <div id="setup">
+        <label>Alamat Wallet Phantom:</label>
+        <input type="text" id="wallet">
+        <button onclick="mulai()">MULAI UJIAN</button>
+    </div>
 
-        function mulaiKuis() {
-            if(!document.getElementById('wallet_siswa').value) return alert("Isi wallet dulu!");
-            document.getElementById('setup-area').style.display = 'none';
-            document.getElementById('quiz-area').style.display = 'block';
-        }
+    <div id="quiz" style="display:none">
+        <div id="soal-box"></div>
+        <button onclick="next()">SOAL SELANJUTNYA</button>
+    </div>
 
-        function nextSoal() {
-            const rbg = document.querySelector(`input[name="j${currentSoal}"]:checked`);
-            if(!rbg) return alert("Pilih jawaban dulu!");
-            
-            totalSkor += parseInt(rbg.value);
-            document.getElementById(`q${currentSoal}`).classList.remove('active');
-            currentSoal++;
+    <div id="status"></div>
+</div>
 
-            if(currentSoal <= 2) { // Ganti ke 20 jika soal sudah lengkap
-                document.getElementById(`q${currentSoal}`).classList.add('active');
-            } else {
-                prosesKlaim();
-            }
-        }
+<script>
+window.Buffer = buffer.Buffer;
 
-        async function prosesKlaim() {
-            const log = document.getElementById('status');
-            const targetSiswa = document.getElementById('wallet_siswa').value.trim();
-            log.innerHTML = "⏳ Mengirim Skor ke Blockchain...";
+// ========================
+// BANK SOAL HOTS BUSI
+// ========================
+const bankSoal = [
+{
+q:"Insulator busi berwarna hitam kering. Mesin terasa boros dan tenaga lemah. Analisis paling tepat:",
+opsi:[
+"Campuran bahan bakar terlalu kaya",
+"Pengapian terlalu maju",
+"Suhu mesin terlalu tinggi",
+"Kompresi berlebih"
+],
+kunci:0
+},
+{
+q:"Warna insulator putih pucat disertai gejala knocking saat tanjakan. Tindakan terbaik:",
+opsi:[
+"Memperkaya campuran dan cek pendinginan",
+"Menggunakan busi lebih panas",
+"Memajukan sudut pengapian",
+"Memperbesar celah busi"
+],
+kunci:0
+},
+{
+q:"Busi hitam basah dan motor sulit dihidupkan pagi hari. Penyebab paling logis:",
+opsi:[
+"Gagal pengapian atau campuran terlalu kaya",
+"Oli mesin terlalu encer",
+"Sistem pendingin rusak",
+"Kompresi terlalu tinggi"
+],
+kunci:0
+},
+{
+q:"Insulator cokelat keabu-abuan merata dan performa mesin normal. Kesimpulan:",
+opsi:[
+"Pembakaran dan pengapian optimal",
+"Campuran terlalu miskin",
+"Oli masuk ruang bakar",
+"Pendinginan berlebih"
+],
+kunci:0
+},
+{
+q:"Dua busi sama-sama hitam. Yang satu kering, yang lain basah. Perbedaan makna utamanya:",
+opsi:[
+"Hitam basah indikasi gagal nyala, hitam kering campuran kaya",
+"Keduanya indikasi oli bocor",
+"Hitam kering lebih parah",
+"Tidak ada perbedaan makna"
+],
+kunci:0
+}
+];
 
-            if(totalSkor < 100) { // Sesuai logika KKM
-                log.style.color = "red";
-                log.innerHTML = `❌ Skor: ${totalSkor}. Anda Tidak Lulus. Hadiah Hangus.`;
-                return;
-            }
+// ========================
+// ACAK
+// ========================
+function shuffle(a){
+for(let i=a.length-1;i>0;i--){
+const j=Math.floor(Math.random()*(i+1));
+[a[i],a[j]]=[a[j],a[i]];
+}
+}
 
-            try {
-                const solana = window.solanaWeb3;
-                const spl = window.splToken;
-                const koneksi = new solana.Connection(solana.clusterApiUrl("devnet"), "confirmed");
-                const bapak = solana.Keypair.fromSecretKey(SK_GURU);
-                
-                const mintGrass = new solana.PublicKey("CyDAzrwQW161KZYV2nP4stwiJK2FN8YW3bxNHPuRnsSv");
-                const brankasBapak = new solana.PublicKey("F8BAKuL1twAMoN4Kx35RJ2aDK7hE4MDQTZ2t9LRTcfGG");
-                const siswaOwner = new solana.PublicKey(targetSiswa);
+// ========================
+// QUIZ ENGINE
+// ========================
+let soal=[], idx=0, skor=0;
 
-                // Auto-create account siswa di Phantom
-                const akunSiswa = await spl.getOrCreateAssociatedTokenAccount(koneksi, bapak, mintGrass, siswaOwner);
+function mulai(){
+if(!wallet.value) return alert("Wallet wajib diisi");
+setup.style.display="none";
+quiz.style.display="block";
 
-                const tx = await spl.transfer(koneksi, bapak, brankasBapak, akunSiswa.address, bapak.publicKey, 100);
+shuffle(bankSoal);
+soal = bankSoal.slice(0,10).map(s=>{
+    const x=JSON.parse(JSON.stringify(s));
+    const benar=x.opsi[x.kunci];
+    shuffle(x.opsi);
+    x.kunci=x.opsi.indexOf(benar);
+    return x;
+});
+render();
+}
 
-                log.style.color = "#4ade80";
-                log.innerHTML = `✅ LULUS! 100 $GRASS sudah dikirim ke Phantom Anda.<br>ID: ${tx.substring(0,10)}...`;
-            } catch (err) {
-                log.innerHTML = "❌ Error: " + err.message;
-            }
-        }
-    </script>
+function render(){
+const s=soal[idx];
+let html=`<div class="soal"><b>Soal ${idx+1}:</b><p>${s.q}</p>`;
+s.opsi.forEach((o,i)=>{
+html+=`
+<div class="opsi">
+<label><input type="radio" name="j" value="${i}"> ${o}</label>
+</div>`;
+});
+html+=`</div>`;
+document.getElementById("soal-box").innerHTML=html;
+}
+
+function next(){
+const pilih=document.querySelector("input[name='j']:checked");
+if(!pilih) return alert("Pilih jawaban dulu");
+if(parseInt(pilih.value)===soal[idx].kunci) skor+=10;
+idx++;
+if(idx<soal.length) render();
+else selesai();
+}
+
+function selesai(){
+quiz.style.display="none";
+status.innerHTML=`Skor akhir: ${skor}<br>${skor>=70?"✅ LULUS":"❌ TIDAK LULUS"}`;
+}
+</script>
 </body>
 </html>
